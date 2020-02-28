@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+
+import { Link } from "react-router-dom";
 import { 
     Navbar, 
     Input, 
@@ -14,16 +16,10 @@ import {
 } from 'reactstrap';
 
 import { MdSearch,MdRemoveFromQueue,MdStar } from 'react-icons/md';
-import logo from './img/whatsapp.png'
-
 export default class Home extends Component {
     state = {
         loading: false,
         stars:[]
-    }
-
-    imagem =() => {
-        return <img src={logo} alt="logo"/>
     }
 
     universe = async (event) => {
@@ -48,12 +44,29 @@ export default class Home extends Component {
     render() {
         return(
             <>
+
+
+
+            <Navbar color="dark" className="text-light">
+                <Container className="d-flex flex-row justify-content-center">
+                    <img width='60px' className='rounded-circle border border-white mr-3' src="https://thispersondoesnotexist.com/image" alt='random'/>
+                    <span className=''>
+                        Logado como:
+                        <Link className="font-weight-bold ml-2" to="/">
+                            {this.props.match.params.usuario}
+                        </Link>
+                    </span>
+                </Container>
+            </Navbar>
+            
+            
+            
             <Navbar color="dark" fixed="bottom">
                 <Container className="d-flex flex-row justify-content-center">
                     <Col xs="12" md="6">
                         <Form onSubmit={this.universe}>
                         <InputGroup>
-                        <Input type="date" className="texto"/>
+                        <Input type="date"/>
                             <InputGroupAddon addonType="append">
                                 <Button color="light" outline>
                                     {this.state.carregando ? (<Spinner size="sm" color="danger"/>) :<MdSearch size="20"/>}
@@ -91,7 +104,7 @@ export default class Home extends Component {
 
             {this.state.stars.length === 0 && (
                 <Container className="h-100 d-flex flex-column justify-content-center align-items-center"> 
-                    (this.imagem)
+                    <MdStar className='star' color="dark" size="150px"/>
                     <h3>Escolha uma data !</h3>
                 </Container>
             )}
@@ -103,7 +116,7 @@ export default class Home extends Component {
                 <span>Loading ...</span>
             </Container>)} */}
 
-{/* <MdStar color="dark" size="150px"/> */}
+
 
             </>
         ) ;
